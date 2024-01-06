@@ -1,25 +1,41 @@
-//crates
+//import crates
 extern crate serde;
 #[macro_use]
 extern crate serde_derive;
 extern crate rmp_serde as rmps;
+extern crate dwat20;
 
-//modules
+//crates
+use dwat20::Die;
+use rmps::{ Deserializer, Serializer };
+use serde::{ Deserialize, Serialize };
+
+//import modules
 mod keyword;
 mod storage;
+mod creature;
+mod ability;
+mod proficiency;
+mod ancestry;
+mod background;
+mod core;
+mod skill;
+mod save_throw;
+mod player;
 
-//use crate and module
+//modules
+use ability::{ Ability, AbilityStruct };
+use ancestry::Ancestry;
+use background::Background;
+use creature::{ Creature, Size };
 use keyword::Keyword;
-use storage::serialize;
-use serde::Deserialize;
-use rmps::Deserializer;
+use player::Player;
+use proficiency::Proficiency;
+use save_throw::{ SaveThrow, SaveThrowStruct };
+use skill::{ Skill, SkillStruct };
+use storage::{ file_to_buf, serialize_to_file};
 
 fn main() {
-    let mut buf = Vec::new();
-    let val = Keyword::new(0, "test".into(), "test keyword for msgpack".into());
-    serialize(&val, &mut buf);
-    println!("{:?}",buf);
-    let de_val = deserialize!(Keyword, buf);
-    println!("{:?}",de_val);
-    println!("{:?}",val);
+    let player: Player = Player::new();
+    println!("{:#?}", player);
 }
