@@ -31,11 +31,11 @@ use creature::{ Creature, Size };
 use keyword::Keyword;
 use player::Player;
 use proficiency::Proficiency;
-use save_throw::{ SaveThrow, SaveThrowStruct };
+use save_throw::SaveThrowStruct;
 use skill::{ Skill, SkillStruct };
 use storage::{ file_to_buf, serialize_to_file};
 
 fn main() {
     let player: Player = Player::new();
-    println!("{:#?}", player);
+    println!("{:#?}", player.creature_data.abilities);
 }

@@ -36,8 +36,17 @@ pub struct AbilityStruct {
 
 impl AbilityStruct {
     pub fn new() -> Self {
+        let mut ability_modifiers = HashMap::<Ability, i8>::new();
+
+        ability_modifiers.insert(Ability::Strength, 0);
+        ability_modifiers.insert(Ability::Dexterity, 0);
+        ability_modifiers.insert(Ability::Consitution, 0);
+        ability_modifiers.insert(Ability::Intelligence, 0);
+        ability_modifiers.insert(Ability::Wisdom, 0);
+        ability_modifiers.insert(Ability::Charisma, 0);
+
         Self {
-            ability_modifiers: HashMap::<Ability, i8>::new()
+            ability_modifiers
         }
     }
 }
