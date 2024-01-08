@@ -22,20 +22,26 @@ mod core;
 mod skill;
 mod save_throw;
 mod player;
+mod class;
 
 //modules
 use ability::{ Ability, AbilityStruct };
 use ancestry::Ancestry;
 use background::Background;
+use class::Class;
+use core::{
+    ancestries::ELF,
+    backgrounds::FARMHAND,
+};
 use creature::{ Creature, Size };
 use keyword::Keyword;
 use player::Player;
 use proficiency::Proficiency;
-use save_throw::SaveThrowStruct;
+use save_throw::{ SaveThrow, SaveThrowStruct };
 use skill::{ Skill, SkillStruct };
 use storage::{ file_to_buf, serialize_to_file};
 
 fn main() {
-    let player: Player = Player::new();
-    println!("{:#?}", player.creature_data.abilities);
+    let player: Player = Player::new(&ELF, &FARMHAND);
+    println!("{:#?}", player);
 }

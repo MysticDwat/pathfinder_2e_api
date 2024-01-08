@@ -29,20 +29,20 @@ pub enum Skill {
 // struct to store creature skills
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 pub struct SkillStruct {
-    pub skills: HashMap<Skill, (Ability, Proficiency)>,
+    pub skill_modifiers: HashMap<Skill, (Ability, Proficiency)>,
 }
 
 impl SkillStruct {
     // function to create new skillstruct
     pub fn new() -> Self {
         Self {
-            skills: HashMap::<Skill, (Ability, Proficiency)>::new()
+            skill_modifiers: HashMap::<Skill, (Ability, Proficiency)>::new()
         }
     }
 
     // function to get skill mod
     pub fn get_skill_modifier(&self, skill: &Skill, ability_modifiers: &HashMap<Ability, i8>, level: &u8) -> i8 {
-        let (ability, proficiency): &(Ability, Proficiency) = self.skills.get(skill).unwrap();
+        let (ability, proficiency): &(Ability, Proficiency) = self.skill_modifiers.get(skill).unwrap();
         ability_modifiers.get(ability).unwrap() + proficiency.get_modifier(*level as i8)
     }
 }

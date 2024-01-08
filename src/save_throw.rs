@@ -15,13 +15,13 @@ pub enum SaveThrow {
 // struct to store save throws
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 pub struct SaveThrowStruct {
-    pub ability_modifiers: HashMap<SaveThrow, (Ability, Proficiency)>,
+    pub save_throw_modifiers: HashMap<SaveThrow, (Ability, Proficiency)>,
 }
 
 impl SaveThrowStruct {
     pub fn new() -> Self {
         Self {
-            ability_modifiers: HashMap::<SaveThrow, (Ability, Proficiency)>::new()
+            save_throw_modifiers: HashMap::<SaveThrow, (Ability, Proficiency)>::new()
         }
     }
 }

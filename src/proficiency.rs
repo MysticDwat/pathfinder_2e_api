@@ -1,5 +1,5 @@
 // proficiency enum
-#[derive(Debug, PartialEq, Deserialize, Serialize)]
+#[derive(Debug, PartialEq, PartialOrd, Deserialize, Serialize, Clone, Copy)]
 pub enum Proficiency {
     Untrained,
     Trained,
