@@ -1,6 +1,6 @@
 // enum to handle check results' degree of success
 #[derive(Debug)]
-pub enum CheckResult {
+pub enum SuccessDegree {
     CriticalSuccess,
     Success,
     Failure,

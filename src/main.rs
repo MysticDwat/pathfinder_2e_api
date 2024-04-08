@@ -14,12 +14,12 @@ extern crate dwat20;
 mod checks;
 
 // modules
-use checks::check::check;
+use checks::check::flat_check;
 
 // classes
 
 // functions
 
 fn main() {
-    println!("{:?}", check(10, 0, 0, 0, 0, 0, 0, 0))
+    println!("{:?}", flat_check(10))
 }
