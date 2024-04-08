@@ -1,3 +1,6 @@
+// modules
+use crate::creatures::creature::Creature;
+
 // enum to handle attributes
 #[derive(Debug)]
 pub enum Attribute {
@@ -6,7 +9,7 @@ pub enum Attribute {
 }
 
 // enum to handle attribute types
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum AttributeType {
     Strength,
     Dexterity,
@@ -54,11 +57,8 @@ pub struct Modifier {
 
 impl Modifier {
     // get attribute modifier
-    pub fn get_attribute_modifier(&self) -> &i16 {
-        match &self.attribute {
-            Attribute::Type(_) => &0,
-            Attribute::Value(_, value) => value,
-        }
+    pub fn get_attribute_modifier(&self, creature: &Creature) -> i16 {
+        creature.get_attribute_modifier(&self.attribute)
     }
 
     // get largest circumstance bonus
@@ -111,9 +111,9 @@ impl Modifier {
 
     // TODO: replace level param with creature param to access level and attributes
     // adds up all bonuses and penalties to get final mod
-    pub fn get_modifier(&self, level: i16) -> i16 {
-        self.get_attribute_modifier()
-        + self.proficiency_rank.get_bonus(level)
+    pub fn get_modifier(&self, creature: &Creature) -> i16 {
+        self.get_attribute_modifier(creature)
+        + self.proficiency_rank.get_bonus(creature.level)
         + self.get_circumstance_bonus()
         + self.get_circumstance_penalty()
         + self.get_status_bonus()
@@ -123,7 +123,7 @@ impl Modifier {
     }
 
     // get modifier dc by adding 10 to mod
-    pub fn get_difficulty_class(&self, level: i16) -> i16 {
-        self.get_modifier(level) + 10
+    pub fn get_difficulty_class(&self, creature: &Creature) -> i16 {
+        self.get_modifier(creature) + 10
     }
 }

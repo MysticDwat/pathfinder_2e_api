@@ -13,15 +13,18 @@ extern crate dwat20;
 // import modules
 mod checks;
 mod modifiers;
+mod creatures;
 
 // modules
 use modifiers::modifier::{ Modifier, Attribute, AttributeType, Proficiency};
+use creatures::creature::Creature;
 
 // classes
 
 // functions
 
 fn main() {
-    let modifier: Modifier = Modifier {attribute: Attribute::Value(AttributeType::Strength, 5), proficiency_rank: Proficiency::Untrained, circumstance_bonuses: Vec::<i16>::new(), circumstance_penalties: Vec::<i16>::new(), status_bonuses: Vec::<i16>::new(), status_penalties: Vec::<i16>::new(), item_bonuses: Vec::<i16>::new(), item_penalties: Vec::<i16>::new() };
-    println!("{:?}", modifier.get_modifier(1))
+    let creature = Creature::new();
+    let modifier: Modifier = Modifier {attribute: Attribute::Value(AttributeType::Strength, 0), proficiency_rank: Proficiency::Untrained, circumstance_bonuses: Vec::<i16>::new(), circumstance_penalties: Vec::<i16>::new(), status_bonuses: Vec::<i16>::new(), status_penalties: Vec::<i16>::new(), item_bonuses: Vec::<i16>::new(), item_penalties: Vec::<i16>::new() };
+    println!("{:?}", modifier.get_modifier(&creature))
 }
