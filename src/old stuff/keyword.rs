@@ -14,4 +14,11 @@ impl Keyword {
             description
         }
     }
+
+    pub fn template(template: &(&str, &str)) -> Self {
+        Self {
+            name: String::from(template.0),
+            description: String::from(template.1),
+        }
+    }
 }

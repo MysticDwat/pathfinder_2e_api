@@ -49,4 +49,12 @@ impl AbilityStruct {
             ability_modifiers
         }
     }
+
+    pub fn get(&self, ability: &Ability) -> i8 {
+        *self.ability_modifiers.get(ability).unwrap()
+    }
+
+    pub fn get_mut(&mut self, ability: &Ability) -> &mut i8 {
+        self.ability_modifiers.get_mut(ability).unwrap()
+    }
 }

@@ -21,7 +21,7 @@ pub struct Creature {
     pub speed:              u8,                    // stores speed
     pub abilities:          AbilityStruct,         // stores abilitiy mods
     pub maximum_hit_points: u8,                    // stores max hp
-    pub saves:              SaveThrowStruct,       // stores save proficiency and ability
+    pub save_throws:        SaveThrowStruct,       // stores save proficiency and ability
     pub skills:             SkillStruct,           // stores skills
     pub perception:         (Ability, Proficiency) // stores perecption mod
 }
@@ -37,7 +37,7 @@ impl Creature {
             speed: 25,
             abilities: AbilityStruct::new(),
             maximum_hit_points: 8,
-            saves: SaveThrowStruct::new(),
+            save_throws: SaveThrowStruct::new(),
             skills: SkillStruct::new(),
             perception: (Ability::Dexterity, Proficiency::Untrained),
         }
