@@ -7,21 +7,12 @@ use crate::checks::check_result::SuccessDegree;
 // function to resolve all checks
 pub fn check(
     difficulty_class: i16,     // check dc the roll must beat
-    attribute_modifier: i16,   // attribute modifier to roll
-    proficiency_bonus: i16,    // proficiency bonus to roll
-    circumstance_bonus: i16,   // highest circumstance bonus
-    circumstance_penalty: i16, // highest circumstance penalty 
-    status_bonus: i16,         // highest status bonus
-    status_penalty: i16,       // highest status penalty
-    item_bonus: i16,           // highest item bonus
-    item_penalty: i16,         // highest item_penalty
+    modifier: i16,             // modifier to roll
 ) -> SuccessDegree {
     // get raw roll to check for nat 20 or nat 1
     let raw_roll: i16 = Die::new(20).roll() as i16;
 
-    let roll: i16 = raw_roll + attribute_modifier + proficiency_bonus // roll and add attribute modifier and proficiency bonus
-    + circumstance_bonus + status_bonus + item_bonus                  // apply bonuses
-    - circumstance_penalty - status_penalty - item_penalty;           // apply penalties
+    let roll: i16 = raw_roll + modifier; // add modifier to roll
 
     let nat_20_check: bool = raw_roll == 20; // nat 20 upgrades check result
     let nat_1_check: bool = raw_roll == 1;   // nat 1 downgrades check result
@@ -56,5 +47,5 @@ pub fn check(
 
 // function to resolve flat checks; a check without any modifiers
 pub fn flat_check(difficulty_class: i16) -> SuccessDegree {
-    check(difficulty_class, 0, 0, 0, 0, 0, 0, 0, 0)
+    check(difficulty_class, 0,)
 }

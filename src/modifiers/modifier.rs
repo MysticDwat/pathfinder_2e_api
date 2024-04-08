@@ -1,5 +1,3 @@
-// modules
-
 // enum to handle attribute types
 #[derive(Debug)]
 pub enum Attribute {
@@ -79,6 +77,7 @@ impl Modifier {
         self.item_penalties.iter().max().unwrap()
     }
 
+    // TODO: replace level param with creature param to access level and attributes
     // adds up all bonuses and penalties to get final mod
     pub fn get_modifier(&self, level: i16) -> i16 {
         self.attribute_modifier 
