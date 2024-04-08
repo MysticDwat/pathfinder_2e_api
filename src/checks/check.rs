@@ -6,7 +6,7 @@ use crate::checks::check_result::CheckResult;
 
 // function to resolve all checks
 pub fn check(
-    dc: i16,                   // check dc the roll must beat
+    difficulty_class: i16,     // check dc the roll must beat
     modifier: i16,             // basic modifier to roll
     circumstance_bonus: i16,   // highest circumstance bonus
     circumstance_penalty: i16, // highest circumstance penalty 
@@ -25,10 +25,10 @@ pub fn check(
     let nat_20_check: bool = raw_roll == 20; // nat 20 upgrades check result
     let nat_1_check: bool = raw_roll == 1;   // nat 1 downgrades check result
 
-    let critical_success_check: bool = roll >= dc + 10;    // crit success conditions
-    let success_check: bool = roll >= dc;                  // success conditions
-    let failure_check: bool = roll < dc && roll > dc - 10; // failure conditions
-    let critical_failure_check: bool = roll <= dc - 10;    // crit failure conditions
+    let critical_success_check: bool = roll >= difficulty_class + 10;                  // crit success conditions
+    let success_check: bool = roll >= difficulty_class;                                // success conditions
+    let failure_check: bool = roll < difficulty_class && roll > difficulty_class - 10; // failure conditions
+    let critical_failure_check: bool = roll <= difficulty_class - 10;                  // crit failure conditions
 
     // crit success if
     if critical_success_check            // dc is beaten by 10 or more
