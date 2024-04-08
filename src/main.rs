@@ -1,24 +1,25 @@
-//import crates
+// import crates
 extern crate serde;
 //#[macro_use]
 extern crate serde_derive;
 extern crate rmp_serde as rmps;
 extern crate dwat20;
 
-//crates
+// crates
 //use dwat20::Die;
 //use rmps::{ Deserializer, Serializer };
 //use serde::{ Deserialize, Serialize };
 
-//import modules
+// import modules
+mod checks;
 
-//modules
+// modules
+use checks::check::check;
 
-//classes
+// classes
 
-//functions
-
+// functions
 
 fn main() {
-    
+    println!("{:?}", check(10, 0, 0, 0, 0, 0, 0, 0))
 }
