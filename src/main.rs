@@ -12,6 +12,7 @@ extern crate dwat20;
 
 // import modules
 mod checks;
+mod modifiers;
 
 // modules
 use checks::check::flat_check;
