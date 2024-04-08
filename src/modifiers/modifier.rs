@@ -1,12 +1,19 @@
-// enum to handle attribute types
+// enum to handle attributes
 #[derive(Debug)]
 pub enum Attribute {
+    Type(AttributeType),
+    Value(AttributeType, i16),
+}
+
+// enum to handle attribute types
+#[derive(Debug)]
+pub enum AttributeType {
     Strength,
     Dexterity,
     Constitution,
     Intelligence,
     Wisdom,
-    Charisma
+    Charisma,
 }
 
 // enum to handle proficiency ranks
@@ -35,8 +42,7 @@ impl Proficiency {
 // struct to store modifiers
 #[derive(Debug)]
 pub struct Modifier {
-    pub attribute_type: Attribute,
-    pub attribute_modifier: i16,
+    pub attribute: Attribute,
     pub proficiency_rank: Proficiency,
     pub circumstance_bonuses: Vec<i16>,
     pub circumstance_penalties: Vec<i16>,
@@ -47,40 +53,66 @@ pub struct Modifier {
 }
 
 impl Modifier {
+    // get attribute modifier
+    pub fn get_attribute_modifier(&self) -> &i16 {
+        match &self.attribute {
+            Attribute::Type(_) => &0,
+            Attribute::Value(_, value) => value,
+        }
+    }
+
     // get largest circumstance bonus
     pub fn get_circumstance_bonus(&self) -> &i16 {
-        self.circumstance_bonuses.iter().max().unwrap()
+        match self.circumstance_bonuses.iter().max() {
+            Some(value) => value,
+            None => &0,
+        }
     }
 
     // get largest circumstance penalty
     pub fn get_circumstance_penalty(&self) -> &i16 {
-        self.circumstance_penalties.iter().max().unwrap()
+        match self.circumstance_penalties.iter().max() {
+            Some(value) => value,
+            None => &0,
+        }
     }
 
     // get largest status penalty
     pub fn get_status_bonus(&self) -> &i16 {
-        self.status_bonuses.iter().max().unwrap()
+        match self.status_bonuses.iter().max() {
+            Some(value) => value,
+            None => &0,
+        }
     }
 
     // get largest status penalty
     pub fn get_status_penalty(&self) -> &i16 {
-        self.status_penalties.iter().max().unwrap()
+        match self.status_penalties.iter().max() {
+            Some(value) => value,
+            None => &0,
+        }
     }
 
     // get largest item bonus
     pub fn get_item_bonus(&self) -> &i16 {
-        self.item_bonuses.iter().max().unwrap()
+        match self.item_bonuses.iter().max() {
+            Some(value) => value,
+            None => &0,
+        }
     }
 
     // get largest item penalty
     pub fn get_item_penalty(&self) -> &i16 {
-        self.item_penalties.iter().max().unwrap()
+        match self.item_penalties.iter().max() {
+            Some(value) => value,
+            None => &0,
+        }
     }
 
     // TODO: replace level param with creature param to access level and attributes
     // adds up all bonuses and penalties to get final mod
     pub fn get_modifier(&self, level: i16) -> i16 {
-        self.attribute_modifier 
+        self.get_attribute_modifier()
         + self.proficiency_rank.get_bonus(level)
         + self.get_circumstance_bonus()
         + self.get_circumstance_penalty()

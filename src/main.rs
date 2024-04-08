@@ -15,12 +15,13 @@ mod checks;
 mod modifiers;
 
 // modules
-use checks::check::flat_check;
+use modifiers::modifier::{ Modifier, Attribute, AttributeType, Proficiency};
 
 // classes
 
 // functions
 
 fn main() {
-    println!("{:?}", flat_check(10))
+    let modifier: Modifier = Modifier {attribute: Attribute::Value(AttributeType::Strength, 5), proficiency_rank: Proficiency::Untrained, circumstance_bonuses: Vec::<i16>::new(), circumstance_penalties: Vec::<i16>::new(), status_bonuses: Vec::<i16>::new(), status_penalties: Vec::<i16>::new(), item_bonuses: Vec::<i16>::new(), item_penalties: Vec::<i16>::new() };
+    println!("{:?}", modifier.get_modifier(1))
 }
