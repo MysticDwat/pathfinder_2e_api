@@ -1,47 +1,44 @@
 // crates
-
+use std::collections::HashMap;
 
 // modules
-use crate::modifiers::modifier::{ Attribute, AttributeType};
+use crate::modifiers::attribute::Attribute;
+use crate::modifiers::{
+    modifier::Modifier,
+    modifier_type::ModifierType,
+};
 
 // struct to handle creatures
 #[derive(Debug)]
 pub struct Creature {
     pub level: i16,
-    pub abilities: Vec<Attribute>,
+    pub attributes: HashMap<Attribute, i16>,
+    pub proficiencies: HashMap<ModifierType, Modifier>,
 }
 
 impl Creature {
     pub fn new() -> Creature{
         Creature {
             level: 1,
-            abilities: vec![
-                Attribute::Value(AttributeType::Strength, 4), 
-                Attribute::Value(AttributeType::Dexterity, 0), 
-                Attribute::Value(AttributeType::Constitution, 0), 
-                Attribute::Value(AttributeType::Intelligence, 0), 
-                Attribute::Value(AttributeType::Wisdom, 0), 
-                Attribute::Value(AttributeType::Charisma, 0)
-            ]
+            attributes: HashMap::from([
+                (Attribute::Strength, 0), 
+                (Attribute::Dexterity, 0), 
+                (Attribute::Constitution, 0), 
+                (Attribute::Intelligence, 0), 
+                (Attribute::Wisdom, 0), 
+                (Attribute::Charisma, 0)
+            ]),
+            proficiencies: HashMap::new(),
         }
     }
 
+    // function to get attribute modifier
     pub fn get_attribute_modifier(&self, attribute: &Attribute) -> i16 {
-        let attribute_type = match attribute {
-            Attribute::Type(attribute_type) => attribute_type,
-            Attribute::Value(attribute_type, _) => attribute_type,
-        };
+        return *&self.attributes[attribute]
+    }
 
-        let mut attributes_iter = self.abilities.iter();
-
-        let attribute_value = loop {
-            if let Attribute::Value(elem_type, elem_value) = attributes_iter.next().unwrap() {
-                if elem_type == attribute_type {
-                    break elem_value
-                }
-            }
-        };
-
-        return *attribute_value
+    // function to get creature's dc for a check
+    pub fn get_difficulty_class(&self, modifier: &ModifierType) -> i16 {
+        return self.proficiencies[modifier].get_difficulty_class(self)
     }
 }
