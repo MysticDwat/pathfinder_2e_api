@@ -1,5 +1,5 @@
 // enum to handle proficiency ranks
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub enum Proficiency {
     Untrained,
     Trained,

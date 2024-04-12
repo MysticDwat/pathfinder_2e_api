@@ -2,10 +2,16 @@
 use std::collections::HashMap;
 
 // modules
-use crate::modifiers::attribute::Attribute;
-use crate::modifiers::{
-    modifier::Modifier,
-    modifier_type::ModifierType,
+use crate::{
+    equipment::armor::Armor,
+    modifiers::{
+        attribute::Attribute,
+        modifier::Modifier,
+        modifier_type::{
+            ModifierType,
+            ArmorType,
+        },
+    },
 };
 
 // struct to handle creatures
@@ -14,6 +20,8 @@ pub struct Creature {
     pub level: i16,
     pub attributes: HashMap<Attribute, i16>,
     pub proficiencies: HashMap<ModifierType, Modifier>,
+    pub hit_points: i16,
+    pub armor: Armor,
 }
 
 impl Creature {
@@ -21,14 +29,16 @@ impl Creature {
         Creature {
             level: 1,
             attributes: HashMap::from([
-                (Attribute::Strength, 0), 
+                (Attribute::Strength, 5), 
                 (Attribute::Dexterity, 0), 
                 (Attribute::Constitution, 0), 
                 (Attribute::Intelligence, 0), 
                 (Attribute::Wisdom, 0), 
                 (Attribute::Charisma, 0)
             ]),
-            proficiencies: HashMap::new(),
+            proficiencies: HashMap::from([]),
+            hit_points: 10,
+            armor: Armor::new()
         }
     }
 
@@ -40,5 +50,20 @@ impl Creature {
     // function to get creature's dc for a check
     pub fn get_difficulty_class(&self, modifier: &ModifierType) -> i16 {
         return self.proficiencies[modifier].get_difficulty_class(self)
+    }
+
+    // function to handle damaging a creature
+    pub fn damage(&mut self) {
+        self.hit_points -= 10;
+    }
+
+    // function to handle healing a creature
+    pub fn heal(&mut self) {
+        self.hit_points += 10;
+    }
+
+    // funciton to calculate AC
+    pub fn get_armor_class(&self) -> i16 {
+        self.get_difficulty_class(&ModifierType::ArmorClass(self.armor.armor_type)) + self.armor.armor_class
     }
 }

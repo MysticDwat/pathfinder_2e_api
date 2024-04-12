@@ -14,12 +14,18 @@ extern crate dwat20;
 mod checks;
 mod modifiers;
 mod creatures;
+mod equipment;
 
 // modules
+use checks::check::attack;
 use modifiers::{
     attribute::Attribute,
     modifier::Modifier, 
     proficiency::Proficiency,
+    modifier_type::{
+        ModifierType,
+        ArmorType,
+    },
 };
 use creatures::creature::Creature;
 
@@ -28,7 +34,8 @@ use creatures::creature::Creature;
 // functions
 
 fn main() {
-    let creature = Creature::new();
-    let modifier: Modifier = Modifier {attribute: Attribute::Strength, proficiency_rank: Proficiency::Untrained, circumstance_bonuses: Vec::<i16>::new(), circumstance_penalties: Vec::<i16>::new(), status_bonuses: Vec::<i16>::new(), status_penalties: Vec::<i16>::new(), item_bonuses: Vec::<i16>::new(), item_penalties: Vec::<i16>::new() };
-    println!("{:?}", modifier.get_modifier(&creature))
+    let ac_modifier: Modifier = Modifier {attribute: Attribute::Dexterity, proficiency_rank: Proficiency::Trained, circumstance_bonuses: Vec::<i16>::new(), circumstance_penalties: Vec::<i16>::new(), status_bonuses: Vec::<i16>::new(), status_penalties: Vec::<i16>::new(), item_bonuses: Vec::<i16>::new(), item_penalties: Vec::<i16>::new() };
+    let mut defender = Creature::new();
+    defender.proficiencies.insert(ModifierType::ArmorClass(ArmorType::Light), ac_modifier);
+    println!("{:?}", attack(&defender, &defender))
 }

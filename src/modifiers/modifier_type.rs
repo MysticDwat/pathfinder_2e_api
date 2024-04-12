@@ -1,7 +1,7 @@
 // enum to store type of modifier
-#[derive(Debug, PartialEq, Eq, Hash)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum ModifierType {
-    ArmorClass(Armor),
+    ArmorClass(ArmorType),
     Attack(Attack),
     ClassDC(Class),
     Perception,
@@ -12,8 +12,8 @@ pub enum ModifierType {
 }
 
 // enum to store armor types
-#[derive(Debug, PartialEq, Eq, Hash)]
-pub enum Armor {
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
+pub enum ArmorType {
     Unarmored,
     Light,
     Medium,
@@ -21,14 +21,24 @@ pub enum Armor {
 }
 
 // enum to store attack types
-#[derive(Debug, PartialEq, Eq, Hash)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Attack {
     Melee,
     Ranged,
 }
 
+// enum to store weapon types
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
+pub enum WeaponType {
+    Simple,
+    Martial,
+    Unarmed,
+    Advanced,
+    Specific,
+}
+
 // enum to store Class 
-#[derive(Debug, PartialEq, Eq, Hash)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Class {
     Bard,
     Cleric,
@@ -41,7 +51,7 @@ pub enum Class {
 }
 
 // enum to store save throw types
-#[derive(Debug, PartialEq, Eq, Hash)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum SaveThrow {
     Fortitude,
     Reflex,
@@ -49,7 +59,7 @@ pub enum SaveThrow {
 }
 
 // enum to store skill types
-#[derive(Debug, PartialEq, Eq, Hash)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Skill {
     Acrobatics,
     Arcana,
@@ -71,7 +81,7 @@ pub enum Skill {
 }
 
 // enum to store magic traditions
-#[derive(Debug, PartialEq, Eq, Hash)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Tradition {
     Arcane,
     Divine,

@@ -2,7 +2,17 @@
 use dwat20::Die;
 
 // modules
-use crate::checks::check_result::SuccessDegree;
+use crate::{
+    checks::check_result::SuccessDegree, 
+    creatures::creature::Creature,
+    modifiers::{
+        attribute::Attribute,
+        modifier_type:: {
+            ArmorType,
+            ModifierType,
+        },
+    }
+};
 
 // function to resolve all checks
 pub fn check(
@@ -48,4 +58,9 @@ pub fn check(
 // function to resolve flat checks; a check without any modifiers
 pub fn flat_check(difficulty_class: i16) -> SuccessDegree {
     check(difficulty_class, 0,)
+}
+
+// function to resolve attacks
+pub fn attack(attacker: &Creature, defender: &Creature) -> SuccessDegree {
+    check(defender.get_armor_class(), attacker.get_attribute_modifier(&Attribute::Strength))
 }
